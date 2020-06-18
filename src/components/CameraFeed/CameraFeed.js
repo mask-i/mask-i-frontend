@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   Slider,
@@ -7,35 +7,75 @@ import {
   MenuItem,
   Grid,
   Switch,
+  FormControl,
+  Button,
 } from "@material-ui/core";
 import classes from "./CameraFeed.module.css";
 const CameraFeed = () => {
+  const [camera, setCamera] = React.useState({
+    cameraPower: true,
+  });
+  const [settings, setSettings] = React.useState({
+    ramerate: 90,
+    resolution: "640x480",
+  });
+
+  const handleSettingsChange = (event) => {
+    setSettings(event.target.value);
+  };
+  const handlePowerChange = (event) => {
+    setCamera({ ...camera, [event.target.name]: event.target.checked });
+  };
+  console.log(settings);
   return (
     <Container>
       <div className={classes.topControls}>
-        <Grid spacing={11}>
+        <Grid container spacing={10}>
           <Grid item xs>
-            {" "}
-            <InputLabel>Observing:</InputLabel>
-            <Select>
-              <MenuItem value={10}>Entrance</MenuItem>
-            </Select>{" "}
-            <Switch />
+            <Switch
+              checked={camera.cameraPower}
+              onChange={handlePowerChange}
+              name="cameraPower"
+              inputProps={{ "aria-label": "secondary checkbox" }}
+            />
           </Grid>
         </Grid>
       </div>
       <div className={classes.cam}>
-        <img
-          //need to get the right ip to be used here
-          src="http://10.0.0.13:8000/stream.mjpg"
-          alt="Local camera stream"
-        />
+        {camera.cameraPower ? (
+          <img
+            //need to get the right ip to be used here
+            src="http://10.0.0.13:8000/stream.mjpg"
+            alt="Local camera stream"
+          />
+        ) : (
+          <h3>Camera off. Use toggle above to turn it back on.</h3>
+        )}
       </div>
       <div className={classes.brightness}>
-        Brightness
-        <Slider valueLabelDisplay="auto" aria-labelledby="non-linear-slider" />
-      </div>
-      <div>*These and other settings to be implemented....</div>
+        <FormControl>
+          <InputLabel id="demo-simple-select-label">Resolution</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={settings}
+            onChange={handleSettingsChange}
+          >
+            <MenuItem value={{ ramerate: 90, resolution: "640x480" }}>
+              640x480 90fps
+            </MenuItem>
+            <MenuItem value={{ ramerate: 60, resolution: "1280x720" }}>
+              1280x720 60fps
+            </MenuItem>
+            <MenuItem value={{ ramerate: 25, resolution: "1920x1080" }}>
+              1920x1080 25fps
+            </MenuItem>
+          </Select>
+        </FormControl>{" "}
+      </div>{" "}
+      <Button variant="contained" onClick={() => {}}>
+        SAVE SETTINGS
+      </Button>
     </Container>
   );
 };
