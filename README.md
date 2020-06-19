@@ -1,68 +1,68 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Inspiration
 
-## Available Scripts
+Earlier this month, countries announced the reopening of most of their essential businesses. Despite this news, we have seen an uptick in cases of COVID-19 due to a lack of enforcement around the proper guidelines surrounding workplace protection.
 
-In the project directory, you can run:
+## What it does
 
-### `yarn start`
+The intended goal of the application is to distinguish if a person entering a designated area is wearing a mask. The camera will detect with high confidence whether a mask is detected. If a mask is detected, a light installed outside of an entry point will flash green and the person is allowed to enter. If not, the light will flash red and prohibit entry. This serves to prevent those without the proper facial covering to set foot into your place of business and can greatly limit the risk of infectious spread.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## How it works
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+This application works by using a Keras Tensorflow model which we created to classify whether or not a person is wearing a mask. It returns a confidence value which is then used to specify whether or not the green or red LED goes off. The LED is representative of a lock for a business entrance. We then stream this video feed to the localhost. Our react frontend utilizes this video stream to display it accordingly to the user. The react app is also hosted on the localhost which prevents any data breaches from outside users. Also since it's on the localhost any user can access the site from their device as long as it's connected to the same Wifi as the Raspberry Pi. 
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The application can be used for both commercial or personal purposes. To start using the application, you will need access to one or more cameras, depending on the number of entry points you would like to cover. Once you’ve installed your camera(s) at each entry point, the user creates an account on our website. For commercial businesses, there will be two types of users - employees and administrators. Administrators can change settings. Both administrators and employees can view a log of all events.
 
-### `yarn build`
+![Functionality](https://media1.giphy.com/media/kG8P2HofVnRK9MI2cs/giphy.gif) 
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## How we built it
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+**Deep-learning Model**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- The AI model is built using a convolutional neural network design with TensorFlow. We were able to train it with up to a 97% accuracy
 
-### `yarn eject`
+The original dataset is prepared by [Prajna Bhandary](https://www.linkedin.com/in/prajna-bhandary-0b03a416a/) and available at [Github](https://github.com/prajnasb/observations/tree/master/experiements/data) which provides sample sets of simulated masked face images. So far the model was trained for only 20 epochs using a batch size of 35. We plan to train our model with additional datasets to increase its accuracy when dealing with other factors for example people with different colored masks and different shaped masks. The training history can be seen in the following graphs:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+![Training](https://media.giphy.com/media/WVFiUNtapJki42x2WD/giphy.gif)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The model has achieved an accuracy value of 0.9746 on the validation dataset with 20 training epochs
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+![Accuracy](https://i.imgur.com/UZ3BfJ0.png)
+![Loss metric](https://i.imgur.com/kJWgopJ.png)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+**Frontend**
 
-## Learn More
+- The frontend was built with React using the Material UI library. It contains setting to change the video setting and an activity log of when the camera picked up a face. 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![web](https://i.imgur.com/sdpwK31.png)
+![mobile](https://i.imgur.com/CGnU2m3.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Backend**
 
-### Code Splitting
+- The backend was built with Nodejs/Expressjs using MongoDB. This implemented to help keep track of users activity logs and authentication but is not being utilized not because of the security risk a live backend brings. We've decided to keep things local instead to protect the integrity of the system.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+**Raspberry Pi**
 
-### Analyzing the Bundle Size
+- The Raspberry Pi backend code was built with python3 OpenCV and flask. Opencv utilized the webcam attached to gather facial data that comes from the facial recognition system. It is then passed through the AI model which returns its prediction. At this point, Flask is used to stream the video with the highlighted face that was scanned and a prediction around their face to the localhost.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+![raspi](https://i.imgur.com/V8nhN2C.jpg)
 
-### Making a Progressive Web App
+![raspi-outline](https://i.imgur.com/KaM5otG.jpg)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+## Challenges we ran into
+(Ian)
 
-### Advanced Configuration
+One of the main challenges was creating and training the Tensorflow model, being I've never worked with AI or deep learning in any way this was a huge change for me. The Second main challenge was getting all of this to run on a Raspberry Pi. Getting the model running on the Pi was probably the hardest out of all the parts. In the future, we would like to use Tensorflow Lite to run our model which will help things run smoother. We are in the process now of implementing it but haven't finished yet.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+In the end, I learned a lot about TensorFlow and running it on a Raspberry Pi
 
-### Deployment
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+## Accomplishments that I'm proud of
+- Building my first custom model
+- Streaming my custom model with Opencv to a flask server
 
-### `yarn build` fails to minify
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## What's next for Mask-i
+- Updating the Pi to run Tensorflow Lite
+- Build more functionality with the frontend and the webcam settings
+- Re-train the model using other datasets to help improve its predictions. 
