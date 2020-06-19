@@ -12,10 +12,10 @@ import {
 } from "@material-ui/core";
 import classes from "./CameraFeed.module.css";
 const CameraFeed = () => {
-  const [camera, setCamera] = React.useState({
+  const [camera, setCamera] = useState({
     cameraPower: true,
   });
-  const [settings, setSettings] = React.useState({
+  const [settings, setSettings] = useState({
     ramerate: 90,
     resolution: "640x480",
   });
@@ -45,7 +45,7 @@ const CameraFeed = () => {
         {camera.cameraPower ? (
           <img
             //need to get the right ip to be used here
-            src="http://10.0.0.13:8000/stream.mjpg"
+            src="http://localhost:5000/video_feed"
             alt="Local camera stream"
           />
         ) : (
@@ -61,15 +61,9 @@ const CameraFeed = () => {
             value={settings}
             onChange={handleSettingsChange}
           >
-            <MenuItem value={{ ramerate: 90, resolution: "640x480" }}>
-              640x480 90fps
-            </MenuItem>
-            <MenuItem value={{ ramerate: 60, resolution: "1280x720" }}>
-              1280x720 60fps
-            </MenuItem>
-            <MenuItem value={{ ramerate: 25, resolution: "1920x1080" }}>
-              1920x1080 25fps
-            </MenuItem>
+            <MenuItem value={"640x480 90fps"}>640x480 90fps</MenuItem>
+            <MenuItem value={"1280x720 60fps"}>1280x720 60fps</MenuItem>
+            <MenuItem value={"1920x1080 25fps"}>1920x1080 25fps</MenuItem>
           </Select>
         </FormControl>{" "}
       </div>{" "}
