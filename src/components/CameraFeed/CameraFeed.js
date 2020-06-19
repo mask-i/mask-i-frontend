@@ -45,7 +45,7 @@ const CameraFeed = () => {
         {camera.cameraPower ? (
           <img
             //need to get the right ip to be used here
-            src="http://localhost:5000/video_feed"
+            src="192.168.0.106:5000"
             alt="Local camera stream"
           />
         ) : (
