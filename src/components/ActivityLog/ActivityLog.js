@@ -7,6 +7,7 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core";
+import classes from "./ActivityLog.module.css";
 const ActivityLog = () => {
   return (
     <div>
@@ -15,13 +16,36 @@ const ActivityLog = () => {
           <TableHead>
             <TableRow>
               <TableCell>Time</TableCell>
-              <TableCell align="right">Mask Status</TableCell>
-              <TableCell align="right">Confidence(%)</TableCell>
-              <TableCell align="right">Camera</TableCell>
+              <TableCell>Mask Status</TableCell>
+              <TableCell>Confidence(%)</TableCell>
+              <TableCell>Camera</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {/* map whatever data we get to TableCells for display */}
+            <TableRow>
+              <TableCell scope="row">6/17/2020 9:21PM</TableCell>
+              <TableCell>
+                <div className={classes.circle} />
+              </TableCell>
+              <TableCell>93</TableCell>
+              <TableCell>ENTRANCE</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell scope="row">6/17/2020 9:25PM</TableCell>
+              <TableCell>
+                <div className={classes.offcircle} />
+              </TableCell>
+              <TableCell>92</TableCell>
+              <TableCell>ENTRANCE</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell scope="row">6/17/2020 9:37PM</TableCell>
+              <TableCell>
+                <div className={classes.circle} />
+              </TableCell>
+              <TableCell>90</TableCell>
+              <TableCell>ENTRANCE</TableCell>
+            </TableRow>
           </TableBody>
         </Table>
       </TableContainer>
