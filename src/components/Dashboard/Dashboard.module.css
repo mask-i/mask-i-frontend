@@ -1,3 +1,31 @@
 .mainGrid {
   padding: 2rem;
 }
+
+.middle {
+  margin-top: 30%;
+}
+
+@media (min-width: 769px) {
+  .middle {
+    margin-top: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .middle {
+    margin-top: 100%;
+  }
+}
+
+@media (max-width: 650px) {
+  .middle {
+    margin-top: 130%;
+  }
+}
+
+@media (max-width: 400px) {
+  .middle {
+    margin-top: 135%;
+  }
+}
