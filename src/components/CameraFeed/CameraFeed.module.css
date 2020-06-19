@@ -6,3 +6,9 @@
   min-width: 120;
   margin: px;
 }
+
+.cam img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
