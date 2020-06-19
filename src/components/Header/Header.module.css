@@ -2,8 +2,9 @@
   flex-grow: 1;
 }
 
-.menuButton {
+.icon {
   margin-right: 2rem;
+  max-width: 75px;
 }
 
 .title {

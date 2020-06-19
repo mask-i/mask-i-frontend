@@ -6,8 +6,8 @@ import {
   Button,
   Typography,
 } from "@material-ui/core";
-import MenuIcon from "@material-ui/icons/Menu";
 import classes from "./Header.module.css";
+import EyeLogo from "../../assets/images/mask-eye.png";
 const Header = () => {
   return (
     <AppBar position="static">
@@ -16,14 +16,15 @@ const Header = () => {
           edge="start"
           color="inherit"
           aria-label="menu"
-          className={classes.menuButton}
+          disabled
+          className={classes.icon}
         >
-          <MenuIcon />
+          <img src={EyeLogo} />
         </IconButton>
         <Typography variant="h6" className={classes.title}>
           Mask-i Camera
         </Typography>
-        <Button color="inherit">Login?</Button>
+        <Button color="inherit">Admin</Button>
       </Toolbar>
     </AppBar>
   );
